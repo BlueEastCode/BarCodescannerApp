@@ -1,12 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React, { useState } from 'react';
+import { View,StyleSheet } from 'react-native';
+import  {Table}  from './src/components/Table'
+import   {Api} from  './src/Api/Products'
 export default function App() {
-  return (
+ const [products,setProduct]= useState([]);
+
+const  ProductInfo= async (code)=>{
+// finding  the product Information through code
+  const response= await  Api(code);
+  setProduct(response);
+  }
+    return ( 
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Table ProductInfo={ProductInfo}  products={products}/>
     </View>
   );
 }
@@ -14,7 +20,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#DCDCDC',
     alignItems: 'center',
     justifyContent: 'center',
   },
